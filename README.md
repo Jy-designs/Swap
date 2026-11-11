@@ -21,7 +21,6 @@ Plain HTML, CSS and a little JavaScript: no build step or dependencies.
 
 ## Before going live
 - `DOWNLOAD_URL` at the top of `main.js` sets every Download button (currently `#`). Nav, footer and "See all our available coins" links are `#` placeholders.
-- Steps 2 and 3 in the carousel are draft copy (`STEPS` in `main.js`); Figma only has step 1. The card illustration stays the same for each step.
 - FAQ answers are drafts (Figma only has the questions).
 - Copy changes from Figma, for MiCA wording and typos: see the hand-off message. The Lokalise keys are in `../swap_v1.3_keys.md`.
 
@@ -30,8 +29,10 @@ Plain HTML, CSS and a little JavaScript: no build step or dependencies.
 |---|---|
 | 1280px and up | Desktop 1440 |
 | 1025–1279px | 1026 (hero stacks, calculator under the copy) |
-| 768–1024px | Tablet |
-| below 768px | Mobile (calculator stacks and turns light) |
+| 768–1024px | Tablet (step cards become a swipeable carousel with a pager, as on Buy and Sell) |
+| below 768px | Mobile (calculator stacks and turns light; same step carousel) |
+
+The "Swapping crypto with Venga" steps follow the updated Figma "How It Works" frame (9645:101405): three cards in a row on desktop, and below 1025px the same carousel as the Buy and Sell pages (current card centred, the others dimmed).
 
 ## Run locally
 

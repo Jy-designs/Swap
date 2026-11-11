@@ -113,39 +113,47 @@
   </div>
 </section>
 
-<!-- ============ SWAPPING CRYPTO WITH VENGA (9645:101403) ============ -->
-<section class="section how" id="how">
-  <div class="wrap how__wrap">
-    <h2 class="h2 how__title" data-reveal>Swapping crypto <br>with Venga</h2>
-    <div class="how__stage">
-      <div class="fan" id="fan" data-reveal="scale">
-        <img src="assets/steps-fan.png" width="729" height="418" alt="Screens from the Venga app" loading="lazy">
-      </div>
-      <div class="step" id="step" aria-live="polite">
-        <div class="step__head"><span class="step__num" id="step-num">1</span><h3 class="step__title" id="step-title">Get Started</h3></div>
-        <p class="step__text" id="step-text">takes just a few minutes</p>
-      </div>
-      <div class="pager" id="pager" role="group" aria-label="Steps">
-        <button class="pager__arrow pager__arrow--prev" type="button" aria-label="Previous step">
-          <img class="pager__off" src="assets/carousel-left.svg" width="32" height="32" alt="">
-          <img class="pager__on" src="assets/carousel-right.svg" width="32" height="32" alt="">
-        </button>
-        <div class="pager__dots">
-          <button type="button" class="pager__dot" aria-label="Step 1" aria-current="step"><img src="assets/carousel-dot.svg" width="11" height="11" alt=""></button>
-          <button type="button" class="pager__dot" aria-label="Step 2"><img src="assets/carousel-dot.svg" width="11" height="11" alt=""></button>
-          <button type="button" class="pager__dot" aria-label="Step 3"><img src="assets/carousel-dot.svg" width="11" height="11" alt=""></button>
-          <i class="pager__active" aria-hidden="true"></i>
+<!-- ============ SWAPPING CRYPTO WITH VENGA (Figma "How It Works", 9645:101405) ============ -->
+<section class="how" id="how">
+  <div class="how__wrap">
+    <h2 class="h2" data-reveal>Swapping crypto with Venga</h2>
+    <div class="steps" id="steps">
+      <article class="stepcard" data-reveal>
+        <div class="stepcard__media" style="--c:#78a6ff">
+          <img class="stepcard__pattern" style="--ps:106.59%" src="assets/pat-step1.svg" alt="">
+          <img class="stepcard__phone" src="assets/step1.png" width="403" height="318" alt="Venga app: the list of crypto assets with their prices" loading="lazy">
         </div>
-        <button class="pager__arrow pager__arrow--next" type="button" aria-label="Next step">
-          <img class="pager__off" src="assets/carousel-left.svg" width="32" height="32" alt="">
-          <img class="pager__on" src="assets/carousel-right.svg" width="32" height="32" alt="">
-        </button>
-      </div>
-      <a href="#" class="btn btn--dark" data-download data-reveal="pop">
-        <span class="btn__label">Try Venga Today</span>
-        <span class="btn__ico"><img src="assets/arrow-right-dark.svg" width="24" height="24" alt=""><img src="assets/arrow-right-dark.svg" width="24" height="24" alt=""></span>
-      </a>
+        <h3>Choose crypto to swap to</h3>
+      </article>
+      <article class="stepcard" data-reveal style="--d:.1s">
+        <div class="stepcard__media" style="--c:#e6f96a">
+          <img class="stepcard__pattern" style="--ps:106.82%" src="assets/pat-step2.svg" alt="">
+          <img class="stepcard__phone" src="assets/step2.png" width="403" height="318" alt="Venga app: entering the amount of BTC to swap" loading="lazy">
+        </div>
+        <h3>Enter your swap amount</h3>
+      </article>
+      <article class="stepcard" data-reveal style="--d:.2s">
+        <div class="stepcard__media" style="--c:#ff627f">
+          <img class="stepcard__pattern" style="--ps:111.14%" src="assets/pat-step3.svg" alt="">
+          <img class="stepcard__phone" src="assets/step3.png" width="403" height="318" alt="Venga app: swap order executed successfully" loading="lazy">
+        </div>
+        <h3>Swap confirmed!</h3>
+      </article>
     </div>
+    <!-- Carousel controls (same as the Buy and Sell pages): shown below 1025px, where the cards scroll sideways -->
+    <div class="pager" id="steps-pager" role="group" aria-label="Steps">
+      <button class="pager__arrow pager__arrow--prev" type="button" aria-label="Previous step"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="pager__dots">
+        <button type="button" class="pager__dot" aria-label="Step 1" aria-current="step"></button>
+        <button type="button" class="pager__dot" aria-label="Step 2"></button>
+        <button type="button" class="pager__dot" aria-label="Step 3"></button>
+      </div>
+      <button class="pager__arrow pager__arrow--next" type="button" aria-label="Next step"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+    <a href="#" class="btn btn--dark" data-download data-reveal="pop">
+      <span class="btn__label">Try Venga Today</span>
+      <span class="btn__ico"><img src="assets/arrow-right-dark.svg" width="24" height="24" alt=""><img src="assets/arrow-right-dark.svg" width="24" height="24" alt=""></span>
+    </a>
   </div>
 </section>
 

@@ -50,50 +50,48 @@
     revealEls.forEach(function (el) { io.observe(el); });
   }
 
-  /* ---------- Steps carousel ---------- */
-  // Step 1 is the Figma copy. Steps 2 and 3 are drafts: replace them with the approved copy.
-  var STEPS = [
-    { title: 'Get Started', text: 'takes just a few minutes' },
-    { title: 'Pick your pair', text: 'choose the crypto you sell and the one you buy' },
-    { title: 'Review and swap', text: 'check the price and fees before you confirm' }
-  ];
-  var step = $('#step');
-  var pager = $('#pager');
-  if (step && pager) {
-    var current = 0;
+  /* ---------- Steps: a row of three cards on desktop, a swipeable carousel below 1025px (same as the Buy and Sell pages) ---------- */
+  var track = $('#steps');
+  var pager = $('#steps-pager');
+  if (track && pager) {
+    var cards = $$('.stepcard', track);
+    var dots = $$('.pager__dot', pager);
     var prev = $('.pager__arrow--prev', pager);
     var next = $('.pager__arrow--next', pager);
-    var dots = $$('.pager__dot', pager);
-    var active = $('.pager__active', pager);
-    var fan = $('#fan');
+    var current = 0;
 
-    var paint = function () {
-      prev.disabled = current === 0;
-      next.disabled = current === STEPS.length - 1;
-      active.style.setProperty('--i', current);
-      dots.forEach(function (d, i) {
-        if (i === current) d.setAttribute('aria-current', 'step'); else d.removeAttribute('aria-current');
+    var paint = function (i) {
+      current = i;
+      prev.disabled = i === 0;
+      next.disabled = i === cards.length - 1;
+      dots.forEach(function (d, n) {
+        if (n === i) d.setAttribute('aria-current', 'step'); else d.removeAttribute('aria-current');
       });
-    };
-    var write = function () {
-      $('#step-num').textContent = String(current + 1);
-      $('#step-title').textContent = STEPS[current].title;
-      $('#step-text').textContent = STEPS[current].text;
+      cards.forEach(function (c, n) { c.classList.toggle('is-current', n === i); });
     };
     var go = function (i) {
-      if (i < 0 || i >= STEPS.length || i === current) return;
-      current = i;
-      paint();
-      if (reduce) { write(); return; }
-      step.classList.remove('is-entering');
-      step.classList.add('is-leaving');
-      fan.classList.remove('is-nudging'); void fan.offsetWidth; fan.classList.add('is-nudging');
-      setTimeout(function () {
-        write();
-        step.classList.remove('is-leaving');
-        step.classList.add('is-entering');
-      }, 180);
+      i = Math.max(0, Math.min(cards.length - 1, i));
+      var card = cards[i];
+      var left = card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2;
+      track.scrollTo({ left: left, behavior: reduce ? 'auto' : 'smooth' });
+      paint(i);
     };
+    // Work out which card is centred while the person swipes
+    var sync = function () {
+      var mid = track.scrollLeft + track.clientWidth / 2, best = 0, bestD = Infinity;
+      cards.forEach(function (c, n) {
+        var d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid);
+        if (d < bestD) { bestD = d; best = n; }
+      });
+      if (best !== current) paint(best);
+    };
+    var ticking = false;
+    track.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { ticking = false; sync(); });
+    }, { passive: true });
+    track.addEventListener('scrollend', sync);
     prev.addEventListener('click', function () { go(current - 1); });
     next.addEventListener('click', function () { go(current + 1); });
     dots.forEach(function (d, i) { d.addEventListener('click', function () { go(i); }); });
@@ -101,15 +99,7 @@
       if (e.key === 'ArrowLeft') { e.preventDefault(); go(current - 1); }
       if (e.key === 'ArrowRight') { e.preventDefault(); go(current + 1); }
     });
-    // Swipe on the cards
-    var x0 = null;
-    fan.addEventListener('pointerdown', function (e) { x0 = e.clientX; });
-    fan.addEventListener('pointerup', function (e) {
-      if (x0 === null) return;
-      var dx = e.clientX - x0; x0 = null;
-      if (Math.abs(dx) > 40) go(current + (dx < 0 ? 1 : -1));
-    });
-    paint();
+    paint(0);
   }
 
   /* ---------- FAQ accordion ---------- */

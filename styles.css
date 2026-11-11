@@ -266,50 +266,57 @@ ul, ol { list-style: none; }
   .what__coins { width: min(602px, 100%); margin-inline: auto; }
 }
 
-/* ---------- Swapping crypto with Venga (9645:101403) ---------- */
-.how { overflow: hidden; }
-.how__wrap { display: flex; flex-direction: column; align-items: center; gap: 64px; }
-.how__title { line-height: .85; }
-.how__stage { width: 100%; display: flex; flex-direction: column; align-items: center; }
-/* The three cards are one 2x export of Figma "Group 9811"; it overhangs the 673 × 351 group by its shadows */
-.fan { --fw: 673px; position: relative; flex: none; width: var(--fw); aspect-ratio: 673 / 351; margin-bottom: 32px; }
-.fan img { position: absolute; left: -4.309%; top: -8.262%; width: 108.321%; height: auto; transition: transform .6s var(--ease-spring); }
-.fan.is-nudging img { animation: nudge .6s var(--ease-out); }
-@keyframes nudge { 35% { transform: translateY(-6px) scale(1.012); } }
-.step { min-height: 61px; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 12px; text-align: center; }
-.step__head { display: flex; align-items: center; gap: 8px; }
-.step__num { flex: none; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 132px; background: var(--text); color: var(--text-invert); font-weight: 500; font-size: 24px; line-height: 1; }
-.step__title { font-weight: 500; font-size: 32px; line-height: 1.1; text-box: trim-both cap alphabetic; }
-.step__text { font-size: 24px; line-height: 1.3; letter-spacing: .01em; text-box: trim-both cap alphabetic; }
-.step.is-leaving { opacity: 0; transform: translateY(8px); transition: opacity .18s, transform .18s; }
-.step.is-entering { animation: step-in .45s var(--ease-out); }
-@keyframes step-in { from { opacity: 0; transform: translateY(-10px); } }
-
-/* Carousel controls (Figma "Carrousel Controls") */
-.pager { margin-top: 52px; display: flex; align-items: center; gap: 12px; padding: 2px; border: 1px solid var(--stroke-default); border-radius: 99px; background: var(--bg-default); filter: var(--drop-soft); }
-.pager__arrow { position: relative; width: 56px; height: 56px; border-radius: 99px; display: flex; align-items: center; justify-content: center; transition: background .2s; }
-.pager__arrow img { width: 32px; height: 32px; }
-.pager__arrow--prev .pager__on { transform: rotate(180deg); }
-.pager__arrow--next .pager__off { transform: rotate(180deg); }
-.pager__arrow .pager__on, .pager__arrow:disabled .pager__off { display: block; }
-.pager__arrow .pager__off, .pager__arrow:disabled .pager__on { display: none; }
-.pager__arrow:not(:disabled):hover { background: var(--bg-darker-2); }
-.pager__arrow:disabled { cursor: default; }
-.pager__dots { position: relative; display: flex; align-items: center; gap: 12px; }
-.pager__dot { width: 11.2px; height: 11.2px; border-radius: 50%; }
-.pager__dot img { width: 11.2px; height: 11.2px; }
-.pager__active { position: absolute; left: 0; top: 0; width: 11.2px; height: 11.2px; border-radius: 11.2px; background: var(--text); pointer-events: none; transform: translateX(calc(var(--i, 0) * 23.2px)); transition: transform .45s var(--ease-spring); }
-.how .btn { margin-top: 32px; }
+/* ---------- Swapping crypto with Venga (Figma "How It Works", 9645:101405) ---------- */
+.how { padding-block: 128px; overflow: hidden; }
+.how__wrap { width: min(1368px, 100% - 72px); margin-inline: auto; display: flex; flex-direction: column; align-items: center; }
+.how .h2 { margin-bottom: 64px; }
+.steps { width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 80px 24px; margin-bottom: 40px; }
+.stepcard { flex: 0 0 440px; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.stepcard__media {
+  position: relative; width: 100%; aspect-ratio: 440 / 348; border-radius: 32px; overflow: hidden;
+  background: var(--c); box-shadow: var(--shadow-nav); transition: transform .5s var(--ease-out), box-shadow .5s var(--ease-out);
+}
+.stepcard__pattern { position: absolute; left: 50%; top: 50%; width: var(--ps); height: auto; aspect-ratio: 1; transform: translate(-50%, -50%); pointer-events: none; transition: transform 1.4s var(--ease-out); }
+.stepcard__phone { position: absolute; left: 50%; top: 8.62%; width: 91.48%; height: auto; transform: translateX(-50%); transition: transform .6s var(--ease-out); }
+.stepcard:hover .stepcard__media { transform: translateY(-6px); box-shadow: 0 24px 50px rgba(17,26,41,.12), var(--shadow-nav); }
+.stepcard:hover .stepcard__phone { transform: translateX(-50%) translateY(-8px); }
+.stepcard:hover .stepcard__pattern { transform: translate(-50%, -50%) rotate(4deg) scale(1.04); }
+.stepcard h3 { margin-top: 32px; padding: 0 12px; font-weight: 500; font-size: 32px; line-height: 1.1; text-box: trim-both cap alphabetic; }
+.pager { display: none; }
+/* Figma keeps each caption on one line */
+@media (min-width: 1025px) {
+  .stepcard h3 { white-space: nowrap; }
+}
+/* Below 1025px the three cards become a swipeable carousel (same as the Buy and Sell pages):
+   the current card is centred, the others are dimmed, and the pager follows the swipe */
 @media (max-width: 1024px) {
-  .how__wrap { gap: 48px; }
+  .how { padding-block: var(--sec-pad); }
+  .how__wrap { width: 100%; }
+  .how .h2 { padding-inline: var(--gutter); margin-bottom: 48px; }
+  .steps {
+    --card: min(440px, 78vw);
+    position: relative; flex-wrap: nowrap; justify-content: flex-start; gap: 16px; margin-bottom: 24px;
+    padding: 8px calc(50% - var(--card) / 2) 12px; overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; scrollbar-width: none;
+  }
+  .steps::-webkit-scrollbar { display: none; }
+  .stepcard { flex: 0 0 var(--card); scroll-snap-align: center; opacity: .55; transform: scale(.94); transition: opacity .4s var(--ease-out), transform .4s var(--ease-out); }
+  .stepcard.is-current { opacity: 1; transform: none; }
+  .stepcard h3 { margin-top: 24px; font-size: 24px; }
+  .pager { display: flex; align-items: center; gap: 12px; padding: 2px; margin-bottom: 32px; border: 1px solid var(--stroke-default); border-radius: 99px; background: var(--bg-default); filter: var(--drop-soft); }
+  .pager__arrow { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 99px; color: var(--text); transition: background .2s, color .2s; }
+  .pager__arrow svg { width: 28px; height: 28px; }
+  .pager__arrow:not(:disabled):hover { background: var(--bg-darker-2); }
+  .pager__arrow:disabled { color: var(--stroke-hover); cursor: default; }
+  .pager__dots { display: flex; align-items: center; gap: 8px; }
+  .pager__dot { width: 10px; height: 10px; border-radius: 10px; background: var(--stroke-default); transition: width .4s var(--ease-spring), background .3s; }
+  .pager__dot[aria-current] { width: 24px; background: var(--text); }
 }
 @media (max-width: 767px) {
-  .how__wrap { gap: 32px; }
-  .fan { --fw: 491px; }
-  .step__title { font-size: 24px; }
-  .step__text { font-size: 18px; }
-  .step__num { width: 28px; height: 28px; font-size: 18px; }
-  .pager { margin-top: 32px; }
+  .how .h2 { margin-bottom: 32px; }
+  .steps { --card: min(343px, 84vw); gap: 12px; }
+  .stepcard__media { border-radius: 24px; }
+  .stepcard h3 { font-size: 20px; }
 }
 
 /* ---------- Why swap (9645:99031) ---------- */
